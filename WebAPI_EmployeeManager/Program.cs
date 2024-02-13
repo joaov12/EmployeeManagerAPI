@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using WebAPI_EmployeeManager.DataContext;
+
 namespace WebAPI_EmployeeManager
 {
     public class Program
@@ -8,10 +11,16 @@ namespace WebAPI_EmployeeManager
 
             // Add services to the container.
 
+
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            builder.Services.AddDbContext<ApplicationDbContext>(options =>
+            {
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+            });
 
             var app = builder.Build();
 
