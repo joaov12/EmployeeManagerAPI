@@ -1,9 +1,11 @@
-﻿using WebAPI_EmployeeManager.Enums;
+﻿using System.ComponentModel.DataAnnotations;
+using WebAPI_EmployeeManager.Enums;
 
 namespace WebAPI_EmployeeManager.Models
 {
     public class FuncionarioModel
     {
+        [Key]
         public int Id { get; set; }
         public string Nome { get; set; }
         public string Sobrenome { get; set;}
