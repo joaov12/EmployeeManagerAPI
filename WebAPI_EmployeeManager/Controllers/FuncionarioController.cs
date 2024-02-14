@@ -41,5 +41,12 @@ namespace WebAPI_EmployeeManager.Controllers
             return Ok(serviceResponse);
         }
 
+        [HttpPut]
+        public async Task<ActionResult<ServiceResponse<List<FuncionarioModel>>>> UpdateFuncionario(FuncionarioModel editadoFuncionario)
+        {
+            ServiceResponse<List<FuncionarioModel>> serviceResponse = await _funcionarioInterface.UpdateFuncionario(editadoFuncionario);
+            return Ok(serviceResponse);
+        }
+
     }
 }
