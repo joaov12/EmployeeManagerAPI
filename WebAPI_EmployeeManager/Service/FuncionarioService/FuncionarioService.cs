@@ -10,9 +10,30 @@ namespace WebAPI_EmployeeManager.Service.FuncionarioService
         {
             _context = context;
         }
-        public Task<ServiceResponse<List<FuncionarioModel>>> CreateFuncionario(FuncionarioModel novoFuncionario)
+        public async Task<ServiceResponse<List<FuncionarioModel>>> CreateFuncionario(FuncionarioModel novoFuncionario)
         {
-            throw new NotImplementedException();
+            ServiceResponse<List<FuncionarioModel>> serviceResponse = new ServiceResponse<List<FuncionarioModel>>();
+
+            try
+            {
+                if(novoFuncionario == null)
+                {
+                    serviceResponse.Dados = null;
+                    serviceResponse.Mensagem = "Informar dados!";
+                    serviceResponse.Sucesso = false;
+
+                    return serviceResponse;
+                }
+                _context.Add(novoFuncionario);
+                await _context.SaveChangesAsync();
+                serviceResponse.Dados = _context.Funcionarios.ToList();
+            }
+            catch (Exception e)
+            {
+                serviceResponse.Mensagem = e.Message;
+                serviceResponse.Sucesso = false;
+            }
+            return serviceResponse;
         }
 
         public Task<ServiceResponse<List<FuncionarioModel>>> DeleteFuncionario(int id)
