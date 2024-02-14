@@ -32,6 +32,11 @@ namespace WebAPI_EmployeeManager.Service.FuncionarioService
             try
             {
                 serviceResponse.Dados = _context.Funcionarios.ToList();
+
+                if(serviceResponse.Dados.Count == 0)
+                {
+                    serviceResponse.Mensagem = "Nenhum dado encontrado!";
+                }
             }catch(Exception e)
             {
                 serviceResponse.Mensagem = e.Message;
