@@ -34,8 +34,10 @@ namespace WebAPI_EmployeeManager.Service.FuncionarioService
                 serviceResponse.Dados = _context.Funcionarios.ToList();
             }catch(Exception e)
             {
-
+                serviceResponse.Mensagem = e.Message;
+                serviceResponse.Sucesso = false;
             }
+            return serviceResponse;
         }
 
         public Task<ServiceResponse<List<FuncionarioModel>>> InativaFuncionario(int id)
