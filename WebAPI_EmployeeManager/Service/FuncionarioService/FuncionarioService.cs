@@ -1,4 +1,5 @@
-﻿using WebAPI_EmployeeManager.DataContext;
+﻿using System.ComponentModel;
+using WebAPI_EmployeeManager.DataContext;
 using WebAPI_EmployeeManager.Models;
 
 namespace WebAPI_EmployeeManager.Service.FuncionarioService
@@ -41,9 +42,28 @@ namespace WebAPI_EmployeeManager.Service.FuncionarioService
             throw new NotImplementedException();
         }
 
-        public Task<ServiceResponse<FuncionarioModel>> GetFuncionarioById(int id)
+        public async Task<ServiceResponse<FuncionarioModel>> GetFuncionarioById(int id)
         {
-            throw new NotImplementedException();
+            ServiceResponse<FuncionarioModel> serviceResponse = new ServiceResponse<FuncionarioModel>();
+
+            try
+            {
+                FuncionarioModel funcionario = _context.Funcionarios.FirstOrDefault(x => x.Id == id);
+
+                if(funcionario == null)
+                {
+                    serviceResponse.Dados = null;
+                    serviceResponse.Mensagem = "Usuário não localizado!";
+                    serviceResponse.Sucesso = false;
+                }
+                serviceResponse.Dados = funcionario;
+
+            }catch(Exception e)
+            {
+                serviceResponse.Mensagem = e.Message;
+                serviceResponse.Sucesso = false;
+            }
+            return serviceResponse;
         }
 
         public async Task<ServiceResponse<List<FuncionarioModel>>> GetFuncionarios()
