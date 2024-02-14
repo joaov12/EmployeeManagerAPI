@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel;
 using WebAPI_EmployeeManager.DataContext;
 using WebAPI_EmployeeManager.Models;
 
@@ -123,7 +124,7 @@ namespace WebAPI_EmployeeManager.Service.FuncionarioService
 
             try
             {
-                FuncionarioModel funcionario = _context.Funcionarios.FirstOrDefault(x => x.Id == editadoFuncionario.Id);
+                FuncionarioModel funcionario = _context.Funcionarios.AsNoTracking().FirstOrDefault(x => x.Id == editadoFuncionario.Id);
 
                 if (funcionario == null)
                 {
